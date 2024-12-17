@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Jump Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #87ceeb; /* Sky blue */
+        }
+
+        #game {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            background-color: #87ceeb; /* Sky blue */
+        }
+
+        .dragon {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            width: 50px;
+            height: 50px;
+            background: url('./Images/Toothless.png') no-repeat center/contain;
+        }
+
+        .house {
+            position: absolute;
+            bottom: 50px;
+            width: 50px;
+            height: 50px;
+            background: url('./Images/Jumphouse.png') no-repeat center/contain;
+        }
+
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            background: #4caf50; /* Grass green */
+        }
+
+        .score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            color: white;
+        }
+
+        .instructions {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html">Home</a> | 
+    <a href="education.html">Education</a> | 
+    <a href="experience.html">Experience</a> | 
+    <a href="skills.html">Skills</a> | 
+    <a href="#">Game</a> | 
+    <a href="scratch.html">Scratch</a>
+    <br>
+    <div id="game">
+        <div class="dragon" id="dragon"></div>
+        <div class="ground"></div>
+        <div class="score" id="score">Score: 0</div>
+        <div class="instructions">Press Spacebar to jump over the houses!</div>
+    </div>
+    <script>
+        const game = document.getElementById('game');
+        const dragon = document.getElementById('dragon');
+        const scoreElement = document.getElementById('score');
+
+        let isJumping = false;
+        let gravity = 0.9;
+        let score = 0;
+        let houses = [];
+
+        function jump() {
+            if (isJumping) return;
+            isJumping = true;
+
+            let upInterval = setInterval(() => {
+                let dragonBottom = parseInt(window.getComputedStyle(dragon).bottom);
+                if (dragonBottom >= 150) {
+                    clearInterval(upInterval);
+
+                    let downInterval = setInterval(() => {
+                        dragonBottom -= 5 * gravity;
+                        dragon.style.bottom = dragonBottom + 'px';
+                        if (dragonBottom <= 50) {
+                            clearInterval(downInterval);
+                            isJumping = false;
+                        }
+                    }, 20);
+                } else {
+                    dragonBottom += 20;
+                    dragon.style.bottom = dragonBottom + 'px';
+                }
+            }, 20);
+        }
+
+        function createHouse() {
+            const house = document.createElement('div');
+            house.classList.add('house');
+            house.style.left = '100%';
+            game.appendChild(house);
+
+            let houseLeft = game.offsetWidth;
+            let houseInterval = setInterval(() => {
+                houseLeft -= 5;
+                house.style.left = houseLeft + 'px';
+
+                // Collision detection
+                const dragonBottom = parseInt(window.getComputedStyle(dragon).bottom);
+                if (houseLeft < 100 && houseLeft > 50 && dragonBottom < 100) {
+                    alert('Game Over! Your Score: ' + score);
+                    clearInterval(houseInterval);
+                    window.location.reload();
+                }
+
+                if (houseLeft < 0) {
+                    game.removeChild(house);
+                    clearInterval(houseInterval);
+                    score++;
+                    scoreElement.textContent = 'Score: ' + score;
+                }
+            }, 20);
+
+            houses.push(house);
+        }
+
+        function startGame() {
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space') {
+                    jump();
+                }
+            });
+
+            setInterval(createHouse, 2000);
+        }
+
+        startGame();
+    </script>
+</body>
+</html>

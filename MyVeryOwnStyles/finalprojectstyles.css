@@ -1,0 +1,93 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15px;
+    background-color: blanchedalmond;
+    color: black;
+}
+
+.full-width-image {
+    display: block;
+    margin: 0 -10px;
+    padding: 0;
+    width: calc(100% + 2 * 10px);
+    height: auto;
+}
+
+.youtube-container {
+    position: relative;
+    width: 100%; /* Full width of the parent container */
+    padding-bottom: 56.25%; /* Aspect ratio: 16:9 */
+    height: 0;
+    margin: 20px 0; /* Center it horizontally */
+}
+
+.youtube {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width:  50%;
+    height: 50%;
+    border: none;
+}
+
+
+.keepitinthemiddle {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.regularparagraphindent {
+    margin-left: 20%;
+}
+
+h1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 45px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.quarterover {
+    margin-left: 30%;
+}
+
+.ribbon a {
+    color: rgb(221, 150, 58);
+    font-size: 15px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    font-weight: bolder;
+}
+
+h3 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Container that holds the Tableau visualization */
+.tableauPlaceholder {
+    display: flex;
+    justify-content: center; /* Centers the Tableau container horizontally */
+    align-items: center; /* Centers the Tableau container vertically (optional) */
+    margin: 20px auto; /* Adjust the margins around the container (optional) */
+    width: 80%; /* Sets the width of the Tableau container (adjust as needed) */
+}
+
+/* Ensures the visualization takes full width and proper height within its container */
+.tableauViz {
+    width: 100%; /* Ensures Tableau takes full width of its container */
+    height: 600px; /* Adjust the height as needed */
+}
+
+/* Optional: Adjust the static image size for mobile and desktop responsiveness */
+.tableauPlaceholder img {
+    width: 100%;
+    height: auto;
+}
